@@ -4,15 +4,16 @@ require 'nomis/api'
 
 path = 'health'
 
-base_url = ENV['BASE_URL']
 client_key = ENV['CLIENT_KEY']
 client_token = ENV['CLIENT_TOKEN']
+disable_ssl_verify = ENV.fetch('DISABLE_SSL_VERIFY', "").downcase == 'true'
+path = ENV.fetch('NOMIS_API_PATH', 'health')
 
 request = NOMIS::API::Get.new(
-  base_url: base_url,
   client_key: client_key,
   client_token: client_token,
-  path: path
+  path: path,
+  disable_ssl_verify: disable_ssl_verify
 )
 
 t1 = Time.now
